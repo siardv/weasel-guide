@@ -1,127 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>weasel — Workflow Decision Guide</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Lora:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&display=swap"
-    rel="stylesheet"
-  />
-  <link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>weasel — Workflow Guide</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="page">
 
-    <!-- ── header ── -->
-    <header class="site-header">
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="container">
       <div class="header-inner">
-        <div class="pkg-label">
-          <span class="pkg-name">weasel</span>
-          <span class="pkg-version">v1.0.0 · R</span>
+        <div class="brand">
+          <span class="brand-name">weasel</span>
+          <span class="brand-version">v1.0.0</span>
         </div>
-        <h1 class="site-title">Workflow Decision Guide</h1>
-        <p class="site-subtitle">Wave-based Extraction and Selection for Longitudinal Data</p>
+        <div class="brand-full">Wave-based Extraction and Selection for Longitudinal Data</div>
       </div>
-    </header>
+    </div>
+    <div class="header-rule"></div>
+  </header>
 
-    <!-- ── main ── -->
-    <main class="main-content">
+  <!-- INTRO -->
+  <section class="intro-section">
+    <div class="container">
+      <div class="intro-inner">
 
-      <!-- intro -->
-      <section class="intro" id="intro">
-        <div class="intro-inner">
-          <h2 class="intro-heading">About this package</h2>
+        <h1 class="intro-headline">A workflow guide for longitudinal panel analysis</h1>
+        <p class="intro-lede">
+          Longitudinal panel data rarely arrives ready for analysis. Respondents drop out early,
+          skip isolated waves, or enter the study late. Before any model can be fitted, a researcher
+          must decide which waves to retain and which respondents qualify — a deceptively consequential
+          decision that is too often made informally. <strong>weasel</strong> provides two structured,
+          reproducible pipelines for this task.
+        </p>
 
-          <p class="intro-body">
-            <strong>weasel</strong> is an R package for selecting, filtering, and balancing
-            longitudinal panel data across survey waves. It addresses a common problem in
-            panel research: respondents enter late, skip waves, or drop out entirely, and
-            this missingness must be handled systematically before any model can be fit.
-          </p>
-
-          <p class="intro-body">
-            Rather than requiring researchers to write ad hoc subsetting code, weasel
-            provides two structured pipelines — one for exploratory pattern inspection,
-            one for scenario-based selection — along with tools for generating
-            reproducible methods-section prose.
-          </p>
-
-          <div class="intro-grid">
-            <div class="intro-card">
-              <div class="intro-card-label">Scope pipeline</div>
-              <div class="intro-card-desc">
-                Interactively explore the wave-presence patterns in your data and extract
-                subsets matching specific participation fingerprints.
+        <div class="overview-grid">
+          <div class="overview-col">
+            <h2 class="ov-heading">What the package does</h2>
+            <ul class="ov-list">
+              <li>Maps wave participation patterns across respondents</li>
+              <li>Compares selection scenarios with explicit structural constraints</li>
+              <li>Produces analysis-ready long-format data frames</li>
+              <li>Generates prose justifications suitable for methods sections</li>
+            </ul>
+          </div>
+          <div class="overview-col">
+            <h2 class="ov-heading">Two core pipelines</h2>
+            <div class="pipeline-pair">
+              <div class="pip-block pip-scope">
+                <span class="pip-label">Scope</span>
+                <span class="pip-desc">Exploratory. Map the missingness landscape before committing to any selection rule.</span>
               </div>
-              <div class="intro-card-fns">
-                set_weasel_scope <span class="arrow">➜</span> reshape_to_wide <span class="arrow">➜</span> summarize_waves <span class="arrow">➜</span> get_data_by_row
-              </div>
-            </div>
-            <div class="intro-card">
-              <div class="intro-card-label">Plan pipeline</div>
-              <div class="intro-card-desc">
-                Compare scenario-based selection rules and choose the best balance
-                between sample size, coverage, and structural completeness.
-              </div>
-              <div class="intro-card-fns">
-                weasel_plan <span class="arrow">➜</span> weasel_compare_scenarios <span class="arrow">➜</span> weasel_apply <span class="arrow">➜</span> weasel_justify_subset
+              <div class="pip-arrow">&#8594;</div>
+              <div class="pip-block pip-plan">
+                <span class="pip-label">Plan</span>
+                <span class="pip-desc">Comparative. Enforce explicit constraints, score trade-offs, and extract a reproducible sample.</span>
               </div>
             </div>
           </div>
-
-          <p class="intro-body">
-            The decision guide below walks you through a sequence of substantive choices —
-            data source, analytic goal, wave range, scenario strategy — and delivers a
-            concrete R workflow at the end. Each step explains not only what to choose,
-            but why the distinction matters analytically.
-          </p>
-
-          <button class="btn-start" id="btn-start">
-            Begin decision guide
-            <span class="btn-arrow">→</span>
-          </button>
         </div>
-      </section>
 
-      <!-- tree (hidden until start) -->
-      <section class="tree-section hidden" id="tree-section">
-        <div class="tree-inner">
+        <p class="intro-cue">
+          <span class="cue-arrow">&#8595;</span>
+          Use the decision tree below to identify the workflow that matches your situation.
+          Each step reveals only the next relevant choice.
+        </p>
 
-          <!-- decision path breadcrumb -->
-          <nav class="breadcrumb" id="breadcrumb" aria-label="Decision path"></nav>
+      </div>
+    </div>
+  </section>
 
-          <!-- active decision node -->
-          <div class="node-card" id="node-card" role="region" aria-live="polite">
-            <!-- rendered by app.js -->
-          </div>
+  <!-- TREE -->
+  <section class="tree-section">
+    <div class="container">
+      <div class="tree-inner">
 
-          <!-- back / restart -->
-          <div class="tree-nav" id="tree-nav">
-            <button class="btn-back hidden" id="btn-back" aria-label="Go back one step">
-              ← Back
-            </button>
-            <button class="btn-restart" id="btn-restart" aria-label="Restart decision guide">
-              ↺ Restart
-            </button>
-          </div>
+        <div class="path-trail" id="path-trail" aria-label="Decisions made so far"></div>
+        <div class="tree-stage" id="tree-stage" role="main" aria-live="polite"></div>
 
-        </div>
-      </section>
+      </div>
+    </div>
+  </section>
 
-    </main>
-
-    <!-- ── footer ── -->
-    <footer class="site-footer">
-      <p>
-        weasel &middot; R package &middot; MIT License &middot;
-        <code>install.packages("weasel")</code>
-      </p>
-    </footer>
-
-  </div>
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-inner">
+        <span>weasel R package &middot; MIT License</span>
+        <span class="footer-sep">&middot;</span>
+        <code class="install-line">install.packages("weasel")</code>
+        <span class="footer-sep">&middot;</span>
+        <span>Run <code>weasel_example()</code> for a quick-start demonstration</span>
+      </div>
+    </div>
+  </footer>
 
   <script src="app.js"></script>
 </body>
